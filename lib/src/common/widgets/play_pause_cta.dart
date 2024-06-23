@@ -24,6 +24,12 @@ class _PlayPauseCTAState extends State<PlayPauseCTA>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [

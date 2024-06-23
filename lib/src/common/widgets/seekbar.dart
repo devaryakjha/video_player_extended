@@ -91,25 +91,43 @@ class _SeekBarState extends State<_SeekBar> {
     if (_dragValue != null && !_dragging) {
       _dragValue = null;
     }
-    return Slider(
-      allowedInteraction: SliderInteraction.tapAndSlide,
-      activeColor: widget.color,
-      inactiveColor: Colors.white24,
-      max: widget.duration.inMilliseconds.toDouble(),
-      value: value,
-      secondaryTrackValue: bufferedValue,
-      secondaryActiveColor: Colors.white54,
-      onChangeStart: (value) {
-        _dragging = true;
-      },
-      onChanged: (value) {
-        setState(() => _dragValue = value);
-        widget.onChanged?.call(Duration(milliseconds: value.round()));
-      },
-      onChangeEnd: (value) {
-        widget.onChangeEnd?.call(Duration(milliseconds: value.round()));
-        _dragging = false;
-      },
+    return DefaultTextStyle(
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 12,
+      ),
+      child: Row(
+        children: [
+          Text(
+            '${widget.position.inMinutes}:${(widget.position.inSeconds % 60).toString().padLeft(2, '0')}',
+          ),
+          Expanded(
+            child: Slider(
+              allowedInteraction: SliderInteraction.tapAndSlide,
+              activeColor: widget.color,
+              inactiveColor: Colors.white24,
+              max: widget.duration.inMilliseconds.toDouble(),
+              value: value,
+              secondaryTrackValue: bufferedValue,
+              secondaryActiveColor: Colors.white54,
+              onChangeStart: (value) {
+                _dragging = true;
+              },
+              onChanged: (value) {
+                setState(() => _dragValue = value);
+                widget.onChanged?.call(Duration(milliseconds: value.round()));
+              },
+              onChangeEnd: (value) {
+                widget.onChangeEnd?.call(Duration(milliseconds: value.round()));
+                _dragging = false;
+              },
+            ),
+          ),
+          Text(
+            '${widget.duration.inMinutes}:${(widget.duration.inSeconds % 60).toString().padLeft(2, '0')}',
+          ),
+        ],
+      ),
     );
   }
 }
