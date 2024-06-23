@@ -1,7 +1,8 @@
 name: video_player_extended
 description: "A new Flutter package project."
 version: 0.0.1
-homepage:
+homepage: https://github.com/devaryakjha/video_player_extended
+issue_tracker: https://github.com/devaryakjha/video_player_extended/issues
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
