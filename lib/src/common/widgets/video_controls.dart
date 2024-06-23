@@ -192,9 +192,7 @@ class _SpeedControlState extends State<SpeedControl> {
     return PopupMenuButton(
       tooltip: 'Playback speed',
       initialValue: widget.controller.videoPlayerController.value.playbackSpeed,
-      onSelected: (value) {
-        widget.controller.videoPlayerController.setPlaybackSpeed(value);
-      },
+      onSelected: widget.controller.videoPlayerController.setPlaybackSpeed,
       itemBuilder: (context) {
         return [
           const PopupMenuItem(
