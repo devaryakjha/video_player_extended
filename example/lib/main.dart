@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     controller = YoutubePlayerController(
-      'https://www.youtube.com/watch?v=bz6y4GLM9P4',
+      'https://www.youtube.com/watch?v=Fd57NOavMWs',
       autoPlay: true,
     );
   }

@@ -63,8 +63,9 @@ class _VideoControlsState extends State<VideoControls> {
             right: 0,
             child: Row(
               children: [
-                SpeedControl(widget.controller),
+                const SizedBox(width: 16),
                 Expanded(child: Seekbar(controller: widget.controller)),
+                SpeedControl(widget.controller),
                 IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.fullscreen_rounded),

@@ -19,18 +19,17 @@ class VideoPlayerBase extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final child = Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        VideoPlayer(controller.videoPlayerController),
+        VideoControls(controller, options: videoControlOptions),
+      ],
+    );
+
     return AspectRatio(
       aspectRatio: aspectRatio,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          VideoPlayer(controller.videoPlayerController),
-          VideoControls(
-            controller,
-            options: videoControlOptions,
-          ),
-        ],
-      ),
+      child: child,
     );
   }
 }
