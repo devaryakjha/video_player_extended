@@ -17,13 +17,12 @@ abstract class PlayerController<T extends PlayerValue>
   }
 
   Future<void> setupOptions() async {
-    if (value.autoPlay) {
-      await videoPlayerController.play();
-    }
     if (value.loop) {
       await videoPlayerController.setLooping(true);
     }
   }
+
+  Future<void> play() => videoPlayerController.play();
 
   /// Called when the controller is initialised.
   void initialised();

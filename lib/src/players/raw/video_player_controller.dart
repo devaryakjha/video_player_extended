@@ -32,13 +32,14 @@ final class RawVideoPlayerController
   @override
   Future<void> init() async {
     await super.init();
-    Timer(const Duration(seconds: 3), initialised);
+    initialised();
   }
 
   @override
   void initialised() async {
-    value = value.copyWith(isInitialised: true);
     await setupOptions();
+    value = value.copyWith(isInitialised: true);
+    if (value.autoPlay) await play();
   }
 
   /// The key for the video player widget.
