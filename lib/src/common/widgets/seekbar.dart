@@ -8,9 +8,11 @@ class Seekbar<T extends PlayerController> extends StatefulWidget {
   const Seekbar({
     super.key,
     required this.config,
+    this.onValueUpdate,
   });
 
   final ControlsConfig config;
+  final VoidCallback? onValueUpdate;
 
   @override
   State<Seekbar> createState() => _SeekbarState();
@@ -78,14 +80,17 @@ class _SeekbarState<T extends PlayerController> extends State<Seekbar<T>> {
               secondaryTrackValue: bufferedValue,
               onChangeStart: (value) {
                 _dragging = true;
+                widget.onValueUpdate?.call();
               },
               onChanged: (value) {
                 setState(() => _dragValue = value);
+                widget.onValueUpdate?.call();
               },
               onChangeEnd: (value) {
                 final newValue = Duration(milliseconds: value.round());
                 seekTo(newValue);
                 _dragging = false;
+                widget.onValueUpdate?.call();
               },
             ),
           ),

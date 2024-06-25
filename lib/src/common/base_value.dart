@@ -10,6 +10,7 @@ abstract class PlayerValue extends Equatable {
     this.loop = false,
     this.thumbnail,
     this.controlsConfig = const ControlsConfig.defaults(),
+    this.hideControls = true,
   });
 
   const PlayerValue.uninitialized()
@@ -18,7 +19,8 @@ abstract class PlayerValue extends Equatable {
         autoPlay = false,
         loop = false,
         thumbnail = null,
-        controlsConfig = const ControlsConfig.defaults();
+        controlsConfig = const ControlsConfig.defaults(),
+        hideControls = true;
 
   final bool isInitialised;
 
@@ -32,9 +34,18 @@ abstract class PlayerValue extends Equatable {
 
   final ControlsConfig controlsConfig;
 
+  final bool hideControls;
+
   PlayerValue copyWith();
 
   @override
-  List<Object?> get props =>
-      [isInitialised, aspectRatio, autoPlay, loop, thumbnail, controlsConfig];
+  List<Object?> get props => [
+        isInitialised,
+        aspectRatio,
+        autoPlay,
+        loop,
+        thumbnail,
+        controlsConfig,
+        hideControls,
+      ];
 }

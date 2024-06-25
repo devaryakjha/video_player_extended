@@ -16,6 +16,8 @@ final class RawVideoPlayerController
     final double? aspectRatio,
     final ThumbnailConfig? thumbnail,
     final ControlsConfig? controlsConfig,
+    final bool controlsVisibleByDefault = false,
+    this.autoHideControlsDuration = const Duration(seconds: 3),
   })  : _videoPlayerController = videoPlayerController,
         super(
           const RawVideoPlayerValue.uninitialized().copyWith(
@@ -24,10 +26,13 @@ final class RawVideoPlayerController
             loop: loop,
             thumbnail: thumbnail,
             controlsConfig: controlsConfig,
+            hideControls: !controlsVisibleByDefault,
           ),
         );
 
   final VideoPlayerController _videoPlayerController;
+
+  final Duration autoHideControlsDuration;
 
   @override
   VideoPlayerController get videoPlayerController => _videoPlayerController;
@@ -60,4 +65,14 @@ final class RawVideoPlayerController
   Duration get buffered => _videoPlayerController.value.buffered.isEmpty
       ? Duration.zero
       : _videoPlayerController.value.buffered.last.end;
+
+  @override
+  void showControls() {
+    value = value.copyWith(hideControls: false);
+  }
+
+  @override
+  void hideControls() {
+    value = value.copyWith(hideControls: true);
+  }
 }

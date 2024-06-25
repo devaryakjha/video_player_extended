@@ -9,6 +9,7 @@ final class RawVideoPlayerValue extends PlayerValue {
     super.loop,
     super.thumbnail,
     super.controlsConfig,
+    super.hideControls,
   });
 
   const RawVideoPlayerValue.uninitialized() : super.uninitialized();
@@ -21,6 +22,7 @@ final class RawVideoPlayerValue extends PlayerValue {
     bool? loop,
     ThumbnailConfig? thumbnail,
     ControlsConfig? controlsConfig,
+    bool? hideControls,
   }) {
     return RawVideoPlayerValue(
       isInitialised: isInitialised ?? this.isInitialised,
@@ -29,6 +31,7 @@ final class RawVideoPlayerValue extends PlayerValue {
       loop: loop ?? this.loop,
       thumbnail: thumbnail ?? this.thumbnail,
       controlsConfig: controlsConfig ?? this.controlsConfig,
+      hideControls: hideControls ?? this.hideControls,
     );
   }
 

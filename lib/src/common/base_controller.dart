@@ -24,6 +24,11 @@ abstract class PlayerController<T extends PlayerValue>
 
   Future<void> play() => videoPlayerController.play();
 
+  Future<void> pause() => videoPlayerController.pause();
+
+  Future<void> seekTo(Duration position) =>
+      videoPlayerController.seekTo(position);
+
   /// Called when the controller is initialised.
   void initialised();
 
@@ -55,4 +60,12 @@ abstract class PlayerController<T extends PlayerValue>
 
   /// The buffered duration of the video.
   Duration get buffered => Duration.zero;
+
+  bool get isPlaying => videoPlayerController.value.isPlaying;
+
+  bool get isFinished => position >= duration;
+
+  void showControls();
+
+  void hideControls();
 }
