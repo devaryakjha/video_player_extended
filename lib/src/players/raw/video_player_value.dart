@@ -6,7 +6,19 @@ import '../../common/base_value.dart';
 final class RawVideoPlayerValue extends PlayerValue {
   const RawVideoPlayerValue({
     super.isInitialised,
+    super.aspectRatio,
   });
 
   const RawVideoPlayerValue.uninitialized() : super.uninitialized();
+
+  @override
+  RawVideoPlayerValue copyWith({
+    bool? isInitialised,
+    double? aspectRatio,
+  }) {
+    return RawVideoPlayerValue(
+      isInitialised: isInitialised ?? this.isInitialised,
+      aspectRatio: aspectRatio ?? this.aspectRatio,
+    );
+  }
 }

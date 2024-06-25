@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../common/controller_provider.dart';
 import 'video_player_controller.dart';
@@ -38,7 +39,12 @@ class RawVideoPlayerState extends State<RawVideoPlayer> {
   Widget build(BuildContext context) {
     return VideoPlayerControllerProvider(
       controller: controller,
-      child: const Placeholder(),
+      child: AspectRatio(
+        aspectRatio: controller.aspectRatio,
+        child: VideoPlayer(
+          controller.videoPlayerController,
+        ),
+      ),
     );
   }
 }
