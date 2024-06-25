@@ -73,7 +73,7 @@ class _SeekbarState<T extends PlayerController> extends State<Seekbar<T>> {
         children: [
           Expanded(flex: 2, child: _buildTextProgress(position, TextAlign.end)),
           Expanded(
-            flex: 18,
+            flex: 14,
             child: Slider(
               max: max,
               value: value,

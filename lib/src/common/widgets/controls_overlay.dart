@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_player_extended/src/common/index.dart';
 import 'package:video_player_extended/src/common/widgets/animated_play_pause.dart';
@@ -60,6 +61,23 @@ class _ControlsOverlayState<T extends PlayerController>
     }
   }
 
+  void _pushFullScreen() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight,
+    ]);
+    final navigator = Navigator.of(context, rootNavigator: true);
+    final route = MaterialPageRoute<void>(
+      builder: (context) {
+        return Scaffold(
+          body: player,
+        );
+      },
+    );
+    navigator.push(route);
+  }
+
   @override
   Widget build(BuildContext context) {
     final controller = context.watchController();
@@ -76,8 +94,8 @@ class _ControlsOverlayState<T extends PlayerController>
         Positioned.fill(child: Container(color: Colors.black45)),
         Positioned(
           bottom: 0,
-          left: 16,
-          right: 16,
+          left: 8,
+          right: 8,
           child: Row(
             children: [
               Expanded(
@@ -86,6 +104,13 @@ class _ControlsOverlayState<T extends PlayerController>
                   onValueUpdate: _cancelAndRestartTimer,
                 ),
               ),
+              IconButton(
+                onPressed: _pushFullScreen,
+                color: Colors.white,
+                icon: const Icon(
+                  Icons.fullscreen,
+                ),
+              )
             ],
           ),
         ),
