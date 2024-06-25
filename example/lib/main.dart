@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:video_player_extended/video_player_extended.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,14 +55,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late final YoutubePlayerController controller;
+  // late final YoutubePlayerController controller;
   @override
   void initState() {
     super.initState();
-    controller = YoutubePlayerController(
-      'https://www.youtube.com/watch?v=Fd57NOavMWs',
-      autoPlay: true,
-    );
+    // controller = YoutubePlayerController(
+    //   'https://www.youtube.com/watch?v=Fd57NOavMWs',
+    //   autoPlay: true,
+    // );
   }
 
   @override
@@ -74,8 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      body: SafeArea(child: YoutubePlayer(controller)),
-    );
+    return const Scaffold(
+        // body: SafeArea(child: YoutubePlayer(controller)),
+        );
   }
 }
