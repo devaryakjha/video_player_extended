@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_player_extended/src/common/index.dart';
+import 'package:video_player_extended/src/common/widgets/controls_overlay.dart';
 
 import 'video_player_controller.dart';
 
@@ -41,8 +42,8 @@ class RawVideoPlayerState extends State<RawVideoPlayer> {
     return AspectRatio(
       key: controller.key,
       aspectRatio: controller.aspectRatio,
-      child: VideoPlayer(
-        controller.videoPlayerController,
+      child: ControlsOverlay(
+        player: VideoPlayer(controller.videoPlayerController),
       ),
     );
   }
@@ -88,19 +89,21 @@ class RawVideoPlayerState extends State<RawVideoPlayer> {
   @override
   Widget build(BuildContext context) {
     return VideoPlayerControllerProvider(
-      controller: controller,
-      child: AnimatedSwitcher(
-        duration: const Duration(milliseconds: 300),
-        transitionBuilder: (child, animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-        child: controller.value.isInitialised
-            ? buildChild(controller)
-            : buildThumbnail(controller.value.thumbnail),
-      ),
+      controller: controller as PlayerController<PlayerValue>,
+      child: Builder(builder: (context) {
+        return AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (child, animation) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          child: controller.value.isInitialised
+              ? buildChild(controller)
+              : buildThumbnail(controller.value.thumbnail),
+        );
+      }),
     );
   }
 }

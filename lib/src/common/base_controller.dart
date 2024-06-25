@@ -46,4 +46,13 @@ abstract class PlayerController<T extends PlayerValue>
   void _listener() {
     notifyListeners();
   }
+
+  /// The duration of the video.
+  Duration get duration;
+
+  /// The current position of the video.
+  Duration get position;
+
+  /// The buffered duration of the video.
+  Duration get buffered => Duration.zero;
 }

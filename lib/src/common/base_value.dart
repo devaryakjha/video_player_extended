@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:video_player_extended/src/common/controls_config.dart';
 import 'package:video_player_extended/src/common/index.dart';
 
 abstract class PlayerValue extends Equatable {
@@ -8,6 +9,7 @@ abstract class PlayerValue extends Equatable {
     this.autoPlay = false,
     this.loop = false,
     this.thumbnail,
+    this.controlsConfig = const ControlsConfig.defaults(),
   });
 
   const PlayerValue.uninitialized()
@@ -15,7 +17,8 @@ abstract class PlayerValue extends Equatable {
         aspectRatio = null,
         autoPlay = false,
         loop = false,
-        thumbnail = null;
+        thumbnail = null,
+        controlsConfig = const ControlsConfig.defaults();
 
   final bool isInitialised;
 
@@ -27,9 +30,11 @@ abstract class PlayerValue extends Equatable {
 
   final ThumbnailConfig? thumbnail;
 
+  final ControlsConfig controlsConfig;
+
   PlayerValue copyWith();
 
   @override
   List<Object?> get props =>
-      [isInitialised, aspectRatio, autoPlay, loop, thumbnail];
+      [isInitialised, aspectRatio, autoPlay, loop, thumbnail, controlsConfig];
 }

@@ -1,3 +1,4 @@
+import 'package:video_player_extended/src/common/controls_config.dart';
 import 'package:video_player_extended/src/common/index.dart';
 
 final class RawVideoPlayerValue extends PlayerValue {
@@ -7,6 +8,7 @@ final class RawVideoPlayerValue extends PlayerValue {
     super.autoPlay,
     super.loop,
     super.thumbnail,
+    super.controlsConfig,
   });
 
   const RawVideoPlayerValue.uninitialized() : super.uninitialized();
@@ -18,6 +20,7 @@ final class RawVideoPlayerValue extends PlayerValue {
     bool? autoPlay,
     bool? loop,
     ThumbnailConfig? thumbnail,
+    ControlsConfig? controlsConfig,
   }) {
     return RawVideoPlayerValue(
       isInitialised: isInitialised ?? this.isInitialised,
@@ -25,6 +28,7 @@ final class RawVideoPlayerValue extends PlayerValue {
       autoPlay: autoPlay ?? this.autoPlay,
       loop: loop ?? this.loop,
       thumbnail: thumbnail ?? this.thumbnail,
+      controlsConfig: controlsConfig ?? this.controlsConfig,
     );
   }
 

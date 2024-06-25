@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:video_player/video_player.dart';
+import 'package:video_player_extended/src/common/controls_config.dart';
 import 'package:video_player_extended/src/common/index.dart';
 
 import 'video_player_value.dart';
@@ -14,6 +15,7 @@ final class RawVideoPlayerController
     final bool? loop,
     final double? aspectRatio,
     final ThumbnailConfig? thumbnail,
+    final ControlsConfig? controlsConfig,
   })  : _videoPlayerController = videoPlayerController,
         super(
           const RawVideoPlayerValue.uninitialized().copyWith(
@@ -21,6 +23,7 @@ final class RawVideoPlayerController
             autoPlay: autoPlay,
             loop: loop,
             thumbnail: thumbnail,
+            controlsConfig: controlsConfig,
           ),
         );
 
@@ -46,4 +49,15 @@ final class RawVideoPlayerController
   ///
   /// helpful for animating the transition between thumbnail and video player.
   LocalKey get key => ValueKey(_videoPlayerController.dataSource);
+
+  @override
+  Duration get duration => _videoPlayerController.value.duration;
+
+  @override
+  Duration get position => _videoPlayerController.value.position;
+
+  @override
+  Duration get buffered => _videoPlayerController.value.buffered.isEmpty
+      ? Duration.zero
+      : _videoPlayerController.value.buffered.last.end;
 }
