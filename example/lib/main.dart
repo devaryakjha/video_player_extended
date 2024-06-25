@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_player_extended/video_player_extended.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,13 +57,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // late final YoutubePlayerController controller;
+  late final RawVideoPlayerController controller;
+
   @override
   void initState() {
     super.initState();
-    // controller = YoutubePlayerController(
-    //   'https://www.youtube.com/watch?v=Fd57NOavMWs',
-    //   autoPlay: true,
-    // );
+
+    controller = RawVideoPlayerController(
+        autoPlay: true,
+        videoPlayerController: VideoPlayerController.networkUrl(
+          Uri.parse(
+              'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
+        ),
+        thumbnail: const ThumbnailConfig.network(
+          src:
+              'https://media.licdn.com/dms/image/D4E05AQFTfY7CuHKQIA/videocover-high/0/1700560795144?e=2147483647&v=beta&t=HozZimsC-O38TYHGekMRtESr79XoVBFhcmT_9l4svRs',
+          aspectRatio: 16 / 9,
+        ))
+      ..init().then((_) {
+        setState(() {});
+      })
+      ..addListener(() => setState(() {}));
   }
 
   @override
@@ -73,8 +88,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return const Scaffold(
-        // body: SafeArea(child: YoutubePlayer(controller)),
-        );
+    return Scaffold(
+      body: SafeArea(
+        child: RawVideoPlayer(controller),
+      ),
+    );
   }
 }

@@ -11,13 +11,28 @@ abstract class PlayerController<T extends PlayerValue>
 
   /// Initializes the controller.
   @mustCallSuper
-  FutureOr<void> init() {
+  Future<void> init() async {
+    await videoPlayerController.initialize();
     videoPlayerController.addListener(_listener);
   }
 
+  Future<void> setupOptions() async {
+    if (value.autoPlay) {
+      await videoPlayerController.play();
+    }
+    if (value.loop) {
+      await videoPlayerController.setLooping(true);
+    }
+  }
+
+  /// Called when the controller is initialised.
+  void initialised();
+
   @override
   FutureOr<void> dispose() {
-    videoPlayerController.removeListener(_listener);
+    videoPlayerController
+      ..removeListener(_listener)
+      ..dispose();
     super.dispose();
   }
 

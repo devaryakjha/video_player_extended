@@ -6,6 +6,7 @@ export 'src/common/index.dart'
     show
         ReadControllerExtension,
         WatchControllerExtension,
-        SelectControllerExtension;
+        SelectControllerExtension,
+        ThumbnailConfig;
 export 'src/players/raw/index.dart'
     show RawVideoPlayerController, RawVideoPlayer;
