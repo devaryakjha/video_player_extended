@@ -9,3 +9,4 @@ export 'src/common/index.dart'
         WatchControllerExtension,
         SelectControllerExtension,
         ThumbnailConfig;
+export 'youtube_player.dart';

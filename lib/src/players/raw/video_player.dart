@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 import 'package:video_player_extended/src/common/index.dart';
 import 'package:video_player_extended/src/common/widgets/controls_overlay.dart';
 
+import 'raw_thumbnail_builder.dart';
 import 'video_player_controller.dart';
 
 class RawVideoPlayer extends StatefulWidget {
@@ -24,12 +23,15 @@ class RawVideoPlayer extends StatefulWidget {
 class RawVideoPlayerState extends State<RawVideoPlayer> {
   RawVideoPlayerController get controller => widget.controller;
 
-  Future<void> listener() async {}
+  Future<void> listener() async {
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
     controller.addListener(listener);
+    controller.init();
   }
 
   @override
@@ -48,44 +50,6 @@ class RawVideoPlayerState extends State<RawVideoPlayer> {
     );
   }
 
-  Widget buildThumbnail(ThumbnailConfig? config) {
-    if (config == null) {
-      return const SizedBox.shrink();
-    }
-
-    final child = switch (config.type) {
-      ThumbnailType.asset => Image.asset(
-          config.src!,
-          width: config.width,
-          height: config.height,
-          fit: BoxFit.cover,
-        ),
-      ThumbnailType.network => Image.network(
-          config.src!,
-          width: config.width,
-          height: config.height,
-          fit: BoxFit.cover,
-        ),
-      ThumbnailType.file => Image.file(
-          File(config.src!),
-          width: config.width,
-          height: config.height,
-          fit: BoxFit.cover,
-        ),
-      ThumbnailType.custom => config.custom!,
-    };
-
-    if (config.aspectRatio != null) {
-      return AspectRatio(
-        key: ValueKey(config.src),
-        aspectRatio: config.aspectRatio!,
-        child: child,
-      );
-    } else {
-      return KeyedSubtree(key: ValueKey(config.src), child: child);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return VideoPlayerControllerProvider(
@@ -101,7 +65,7 @@ class RawVideoPlayerState extends State<RawVideoPlayer> {
           },
           child: controller.value.isInitialised
               ? buildChild(controller)
-              : buildThumbnail(controller.value.thumbnail),
+              : RawThumbnailBuilder(config: controller.value.thumbnail),
         );
       }),
     );

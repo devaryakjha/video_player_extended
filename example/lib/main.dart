@@ -57,40 +57,21 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // late final YoutubePlayerController controller;
-  late final RawVideoPlayerController controller;
+  late final YoutubePlayerController controller;
 
   @override
   void initState() {
     super.initState();
-
-    controller = RawVideoPlayerController(
-        autoPlay: true,
-        videoPlayerController: VideoPlayerController.networkUrl(
-          Uri.parse(
-              'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
-        ),
-        thumbnail: const ThumbnailConfig.network(
-          src:
-              'https://media.licdn.com/dms/image/D4E05AQFTfY7CuHKQIA/videocover-high/0/1700560795144?e=2147483647&v=beta&t=HozZimsC-O38TYHGekMRtESr79XoVBFhcmT_9l4svRs',
-          aspectRatio: 16 / 9,
-        ))
-      ..init().then((_) {
-        setState(() {});
-      })
-      ..addListener(() => setState(() {}));
+    controller = YoutubePlayerController(
+      videoId: 'https://www.youtube.com/watch?v=mISvJhV8w-w',
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       body: SafeArea(
-        child: RawVideoPlayer(controller),
+        child: YoutubePlayer(controller),
       ),
     );
   }

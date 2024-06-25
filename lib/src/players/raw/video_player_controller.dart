@@ -7,8 +7,7 @@ import 'package:video_player_extended/src/common/index.dart';
 
 import 'video_player_value.dart';
 
-final class RawVideoPlayerController
-    extends PlayerController<RawVideoPlayerValue> {
+class RawVideoPlayerController extends PlayerController<RawVideoPlayerValue> {
   RawVideoPlayerController({
     required VideoPlayerController videoPlayerController,
     final bool? autoPlay,
