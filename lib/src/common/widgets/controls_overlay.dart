@@ -38,28 +38,26 @@ class _ControlsOverlayState<T extends PlayerController>
 
   void _playPause() {
     final control = context.readController<T>();
-    final isFinished = control.position >= control.duration;
+    final isFinished = control.isFinished;
 
-    setState(() {
-      if (control.isPlaying) {
-        control.showControls();
-        _hideTimer?.cancel();
-        control.pause();
-      } else {
-        _cancelAndRestartTimer();
+    if (control.isPlaying) {
+      control.showControls();
+      _hideTimer?.cancel();
+      control.pause();
+    } else {
+      _cancelAndRestartTimer();
 
-        if (!control.value.isInitialised) {
-          control.init().then((_) {
-            control.play();
-          });
-        } else {
-          if (isFinished) {
-            control.seekTo(Duration.zero);
-          }
+      if (!control.value.isInitialised) {
+        control.init().then((_) {
           control.play();
+        });
+      } else {
+        if (isFinished) {
+          control.seekTo(Duration.zero);
         }
+        control.play();
       }
-    });
+    }
   }
 
   @override
@@ -68,7 +66,7 @@ class _ControlsOverlayState<T extends PlayerController>
         context.selectControllerValues(
       (T controller) => (
         controller.value.controlsConfig,
-        controller.value.hideControls,
+        controller.controlsHidden,
         controller.isPlaying,
         controller.isFinished,
       ),

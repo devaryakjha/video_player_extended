@@ -65,6 +65,8 @@ abstract class PlayerController<T extends PlayerValue>
 
   bool get isFinished => position >= duration;
 
+  bool get controlsHidden => value.hideControls && !isFinished;
+
   void showControls();
 
   void hideControls();
