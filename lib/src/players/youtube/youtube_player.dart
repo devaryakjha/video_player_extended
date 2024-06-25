@@ -12,12 +12,23 @@ class YoutubePlayer extends StatefulWidget {
 }
 
 class _YoutubePlayerState extends State<YoutubePlayer> {
+  void listen() {
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
+    widget.controller.addListener(listen);
     widget.controller.init().then((_) {
-      setState(() {});
+      listen();
     });
+  }
+
+  @override
+  void dispose() {
+    widget.controller.removeListener(listen);
+    super.dispose();
   }
 
   @override
@@ -25,9 +36,7 @@ class _YoutubePlayerState extends State<YoutubePlayer> {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: widget.controller.value.isInitialised
-          ? RawVideoPlayer(
-              widget.controller.rawController,
-            )
+          ? RawVideoPlayer(widget.controller.rawController)
           : RawThumbnailBuilder(config: widget.controller.thumbnail),
     );
   }

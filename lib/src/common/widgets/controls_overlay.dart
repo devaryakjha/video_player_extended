@@ -62,14 +62,12 @@ class _ControlsOverlayState<T extends PlayerController>
 
   @override
   Widget build(BuildContext context) {
-    final (config, controlsHidden, isPlaying, isFinished) =
-        context.selectControllerValues(
-      (T controller) => (
-        controller.value.controlsConfig,
-        controller.controlsHidden,
-        controller.isPlaying,
-        controller.isFinished,
-      ),
+    final controller = context.watchController();
+    final (config, controlsHidden, isPlaying, isFinished) = (
+      controller.value.controlsConfig,
+      controller.controlsHidden,
+      controller.isPlaying,
+      controller.isFinished,
     );
 
     final controls = Stack(

@@ -24,32 +24,31 @@ class _SeekbarState<T extends PlayerController> extends State<Seekbar<T>> {
 
   ControlsConfig get config => widget.config;
 
-  Text _buildTextProgress(Duration value) {
+  Widget _buildTextProgress(Duration value, [TextAlign? textAlign]) {
     // format into hours and minutes not seconds
     String formatted;
     if (value.inHours > 0) {
       formatted =
           '${value.inHours}:${(value.inMinutes % 60).toString().padLeft(2, '0')}:${(value.inSeconds % 60).toString().padLeft(2, '0')}';
-      return Text(formatted, style: config.progressBarTextStyle);
     } else {
       formatted =
           '${value.inMinutes}:${(value.inSeconds % 60).toString().padLeft(2, '0')}';
     }
-    return Text(formatted, style: config.effectiveProgressBarTextStyle);
+    return Text(
+      formatted,
+      style: config.effectiveProgressBarTextStyle,
+      textAlign: textAlign,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final (duration, position, buffered, seekTo) =
-        context.selectControllerValues(
-      (T controller) {
-        return (
-          controller.duration,
-          controller.position,
-          controller.buffered,
-          controller.videoPlayerController.seekTo,
-        );
-      },
+    final controller = context.watchController();
+    final (duration, position, buffered, seekTo) = (
+      controller.duration,
+      controller.position,
+      controller.buffered,
+      controller.videoPlayerController.seekTo,
     );
 
     final value = min(
@@ -72,8 +71,9 @@ class _SeekbarState<T extends PlayerController> extends State<Seekbar<T>> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildTextProgress(position),
+          Expanded(flex: 2, child: _buildTextProgress(position, TextAlign.end)),
           Expanded(
+            flex: 18,
             child: Slider(
               max: max,
               value: value,
@@ -94,7 +94,7 @@ class _SeekbarState<T extends PlayerController> extends State<Seekbar<T>> {
               },
             ),
           ),
-          _buildTextProgress(duration),
+          Expanded(flex: 2, child: _buildTextProgress(duration)),
         ],
       ),
     );

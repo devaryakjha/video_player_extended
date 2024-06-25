@@ -23,20 +23,20 @@ class RawVideoPlayer extends StatefulWidget {
 class RawVideoPlayerState extends State<RawVideoPlayer> {
   RawVideoPlayerController get controller => widget.controller;
 
-  Future<void> listener() async {
+  void listen() {
     setState(() {});
   }
 
   @override
   void initState() {
     super.initState();
-    controller.addListener(listener);
+    controller.addListener(listen);
     controller.init();
   }
 
   @override
   void dispose() {
-    controller.removeListener(listener);
+    controller.removeListener(listen);
     super.dispose();
   }
 
